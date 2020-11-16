@@ -11,7 +11,21 @@
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            
+            <div class="form-group">
+                <label asp-for="@Model.Member.FirstName class=" control-label"></label>
+                <input asp-for="@Model.Member.FirstName class=" form-control" />
+                <span asp-validation-for="@Model.Member.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Member.LastName class=" control-label"></label>
+                <input asp-for="@Model.Member.LastName class=" form-control" />
+                <span asp-validation-for="@Model.Member.LastName" class="text-danger"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="@Model.Member.Id" class="hidden"/>
+                <input type="submit" value="Save" class="btn btn-default"/>
+            </div>
         </form>
     </div>
 </div>
