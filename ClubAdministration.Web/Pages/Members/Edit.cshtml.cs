@@ -18,7 +18,7 @@ namespace ClubAdministration.Web.Pages.Members
         }
 
         [BindProperty]
-        public MemberDto Member { get; set; }
+        public Member Member { get; set; }
 
 
         public async Task<IActionResult> OnGet(int? id)
@@ -37,7 +37,7 @@ namespace ClubAdministration.Web.Pages.Members
                 return NotFound();
             }
 
-            Member = new MemberDto
+            Member = new Member
             {
                 FirstName = member.FirstName,
                 LastName = member.LastName,
