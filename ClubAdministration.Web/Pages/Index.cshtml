@@ -1,31 +1,68 @@
 ﻿@page
 @model IndexModel
 @{
-  ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home page";
 }
 
 <h2>Members of section</h2>
 <hr />
 <div class="row">
-  <div class="col-md-2">
-    <form name="formIndex" method="post" onchange="DoPostBack();">
-      <div class="form-group">
-        @*TODO*@
-      </div>
-    </form>
-  </div>
+    <div class="col-md-2">
+        <form name="formIndex" method="post" onchange="DoPostBack();">
+            <div class="form-group">
+                <select asp-for="@Model.SelectedSectionId" onchange="this.form.submit()" class="form-control">
+                    <option value="-1">--</option>
+                    @foreach (var section_ in Model.Sections)
+                    {
+                        <option value="@section_.Id">@section_.Name</option>
+                    }
+                </select>
+            </div>
+        </form>
+    </div>
 </div>
 
 <table class="table">
-  @*TODO*@
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Members.FirstOrDefault().LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Members.FirstOrDefault().FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Members.FirstOrDefault().CountSections)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var member in @Model.Members)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(_ => member.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(_ => member.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(_ => member.CountSections)
+                </td>
+                <td>
+                    <a asp-page="./Members/Edit" asp-route-id="@member.Id">Edit Member</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 <script>
-  function DoPostBack() {
-    document.formIndex.submit();
-  }
+    function DoPostBack() {
+        document.formIndex.submit();
+    }
 </script>
 
 @section Scripts {
-  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
