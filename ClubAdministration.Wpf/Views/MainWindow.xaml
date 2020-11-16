@@ -1,0 +1,55 @@
+﻿<controls:MetroWindow x:Class="ClubAdministration.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClubAdministration.Wpf"
+        xmlns:viewModels="clr-namespace:ClubAdministration.Wpf.ViewModels"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
+        Title="Club Administration" Height="450" Width="291.053">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Margin="10"
+                       VerticalAlignment="Center"
+                       Text="Section:">
+            </TextBlock>
+            <ComboBox Margin="6"
+                      Width="150"
+                      ItemsSource="{Binding Path=Sections}"
+                      SelectedItem="{Binding Path=SelectedSection}"
+                      DisplayMemberPath="Name">
+            </ComboBox>
+        </StackPanel>
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Path=Members}"
+                  SelectedItem="{Binding Path=SelectedMember}"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Lastname" Width="100" Binding="{Binding Path=LastName}"/>
+                <DataGridTextColumn Header="Firstname" Width="100" Binding="{Binding Path=FirstName}"/>
+                <DataGridTextColumn Header="Sections" Width="80" Binding="{Binding Path=CountSections}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="3"
+                Margin="6"
+                Command="{Binding Path= CmdEditMember}">
+            <TextBlock>
+                <TextBlock Text="Member "/>
+                <TextBlock Text="{Binding Path=SelectedMember.FirstName}"/>
+                <TextBlock Text=" "/>
+                <TextBlock Text="{Binding Path=SelectedMember.LastName}"/>
+                <TextBlock Text=" bearbeiten"/>
+            </TextBlock>
+        </Button>
+    </Grid>
+
+</controls:MetroWindow>
