@@ -8,5 +8,6 @@ namespace ClubAdministration.Core.Contracts
     public interface ISectionRepository
     {
         Task<IEnumerable<Section>> GetAllSectionsAsync();
+        Task<string[]> GetSectionNamesForMemberAsync(int memberId);
     }
 }

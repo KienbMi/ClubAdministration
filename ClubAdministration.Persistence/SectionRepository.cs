@@ -22,5 +22,13 @@ namespace ClubAdministration.Persistence
                 .OrderBy(_ => _.Name)
                 .ToArrayAsync();
         }
+
+        public async Task<string[]> GetSectionNamesForMemberAsync(int memberId)
+        {
+            return await _dbContext.MemberSections.Where(_ => _.MemberId == memberId)
+                .OrderBy(_ => _.Section.Name)
+                .Select(_ => _.Section.Name)
+                .ToArrayAsync();
+        }
     }
 }

@@ -12,5 +12,7 @@ namespace ClubAdministration.Core.Contracts
         Task<IEnumerable<MemberDto>> GetMemberDtoBySectionIdAsync(int sectionId);
 
         Task<Member> GetMemberByIdAsync(int memberId);
+        Task<string[]> GetMemberNamesAsync();
+        Task<Member> GetMemberByNameAsync(string lastName, string firstName);
     }
 }

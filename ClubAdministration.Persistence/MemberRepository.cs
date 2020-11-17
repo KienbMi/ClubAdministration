@@ -19,7 +19,13 @@ namespace ClubAdministration.Persistence
         }
 
         public async Task<Member> GetMemberByIdAsync(int memberId)
-            => await _dbContext.Members.SingleOrDefaultAsync(_ => _.Id == memberId);      
+            => await _dbContext.Members.SingleOrDefaultAsync(_ => _.Id == memberId);
+
+        public async Task<Member> GetMemberByNameAsync(string lastName, string firstName)
+        {
+            return await _dbContext
+                .Members.FirstOrDefaultAsync(m => m.FirstName == firstName && m.LastName == lastName);
+        }
 
         public async Task<IEnumerable<MemberDto>> GetMemberDtoBySectionIdAsync(int sectionId)
         {
@@ -38,6 +44,15 @@ namespace ClubAdministration.Persistence
                 .OrderBy(_ => _.LastName)
                 .ThenBy(_ => _.LastName)
                 .ToArray();
+        }
+
+        public async Task<string[]> GetMemberNamesAsync()
+        {
+            return await _dbContext.Members
+                .OrderBy(_ => _.LastName)
+                    .ThenBy(_ => _.FirstName)
+                .Select(_ => $"{_.LastName} {_.FirstName}")
+                .ToArrayAsync();
         }
 
         public bool IsMemberDuplicate(Member member)
